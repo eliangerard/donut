@@ -16,7 +16,7 @@ export default function ProductsList({ products } : { products: any[] | null }) 
             <ToastContainer transition={Slide}/>
             {
                 products?.map((product) => (
-                    <div onClick={onClick} className="bg-turquoise-50 hover:bg-gradient-to-br hover:from-turquoise-100 hover:to-turquoise-200 hover:cursor-pointer w-60 h-80 rounded-xl p-4 flex flex-col justify-between m-2 group transition-all" key={product.id}>
+                    <div onClick={onClick} className="bg-[length:200%_300%] hover:bg-[center_top_100%] hover:bg-[length:100%_200%] bg-gradient-to-br from-turquoise-50 to-turquoise-200 hover:cursor-pointer w-60 h-80 rounded-xl p-4 flex flex-col justify-between m-2 group transition-all" key={product.id}>
                         <div className="flex flex-row-reverse">
                             <Image src='/heart.png' width={24} height={24} alt="" quality={100} />
                         </div>
