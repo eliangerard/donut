@@ -1,4 +1,5 @@
 import ProductsList from "@/components/ProductsList";
+import Layout from "@/components/layout";
 import { createClient } from "@/utils/supabase/server"
 import { cookies } from "next/headers"
 import Image from "next/image";
@@ -18,10 +19,10 @@ export default async function Page() {
     console.log(productsByCategory);
 
     return (
-        <>
-            <h2 className="text-xl font-bold m-4">Ropa</h2>
+        <Layout>
+            <h2 className="text-xl font-bold m-4 w-7/12">Ropa</h2>
             <ProductsList products={productsByCategory} />
-        </>
+        </Layout>
 
     )
 }
