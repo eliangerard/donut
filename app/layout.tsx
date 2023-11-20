@@ -24,7 +24,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo.png" />
       </head>
-      <body className={poppins.className + ' bg-neutral-50 transition-all mt-6 md:mt-0'}>
+      <body className={poppins.className + ' bg-neutral-100 transition-all mt-6 md:mt-0'}>
         {children}
       </body>
     </html>

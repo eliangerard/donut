@@ -20,11 +20,8 @@ export default async function Page() {
     console.log(products, error);
     return (
         <Layout>
-            <div className="w-full flex flex-col justify-center items-center">
-                <div className="w-full p-4 md:w-7/12">
-                    <Image className="w-full" src="/ad.png" alt="" width={2000} height={1000} quality={100} />
-                    <h2 className="text-xl font-bold mt-8 ml-0 mb-0">Destacados</h2>
-                </div>
+            <div className="w-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+                <Image className="w-full col-span-2 md:col-span-3 lg:col-span-4 " src="/ad.png" alt="" width={1000} height={100} quality={100} />
                 <ProductsList products={products} />
             </div>
         </Layout>

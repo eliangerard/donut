@@ -20,8 +20,10 @@ export default async function Page() {
 
     return (
         <Layout>
-            <h2 className="text-xl font-bold m-4 w-7/12">Ropa</h2>
-            <ProductsList products={productsByCategory} />
+            <div className="w-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+                <Image className="w-full col-span-2 md:col-span-3 lg:col-span-4 " src="/ad.png" alt="" width={1000} height={1000} quality={100} />
+                <ProductsList products={productsByCategory} />
+            </div>
         </Layout>
 
     )

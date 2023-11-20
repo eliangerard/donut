@@ -9,11 +9,11 @@ const montserrat = Montserrat({ subsets: ['latin'], weight: ["900"] });
 export default function Header() {
 
   return (
-    <header className='sticky top-0 w-full flex-col lg:flex-row items-center px-0 md:px-12 pt-4 md:py-2 flex justify-between bg-neutral-50 z-10'>
-      <div className='flex justify-between h-full w-full lg:w-fit items-center px-4 pb-4 md:pb-0 md:pr-0'>
-        <Link href={"/"} className='flex' >
-          <Image className='hidden md:block' src="/logo.png" alt="Donut" width={40} height={40} />
-          <h1 className={`${montserrat.className} text-4xl ml-2`}>Donut</h1>
+    <header className='sticky top-0 w-full flex-col lg:flex-row items-center px-0 md:px-12 pt-4 md:py-2 flex justify-between bg-neutral-100 z-10'>
+      <div className='flex justify-between h-full w-full lg:w-fit items-center pb-4 md:pb-0 md:pr-0'>
+        <Link href={"/"} className='flex md:w-48' >
+          <Image className='hidden md:block' src="/logo.png" alt="Donut" width={48} height={48} />
+          <h1 className={`${montserrat.className} text-4xl md:ml-3 pt-0.5`}>Donut</h1>
         </Link>
         <div className='flex lg:hidden items-center'>
           <AuthButton />
@@ -26,7 +26,7 @@ export default function Header() {
           </Link>
         </div> */}
       <Categories />
-      <div className='hidden lg:flex items-center'>
+      <div className='hidden lg:flex items-center md:w-48 justify-end'>
         <AuthButton />
       </div>
     </header>
