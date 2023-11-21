@@ -29,12 +29,9 @@ export default function ProductsList({ products } : { products: any[] | null }) 
                             <div className="flex justify-between h-8">
                                 <p className={"font-black text-lg text-turquoise-800 " + montserrat.className}>${product.price}</p>
                                 <div className="flex">
-                                    {/* <button className="flex justify-center pr-1 items-center opacity-0 group-hover:opacity-100 transition-all bg-white rounded-xl w-8">
-                                        <Image src="/cart.svg" alt="" width={20} height={20} />
-                                    </button> 
-                                    <button className="opacity-0 group-hover:opacity-100 bg-turquoise-500 hover:bg-turquoise-600 text-white py-1 px-2 rounded-xl font-bold ml-2 transition-all">
-                                        Ver
-                                    </button>*/}
+                                    <button className="opacity-0 group-hover:opacity-100 bg-turquoise-500 hover:bg-turquoise-600 text-white p-1 rounded-full font-bold ml-2 w-8 h-8 transition-all">
+                                        ↗
+                                    </button>
                                 </div>
                             </div>
                         </div>

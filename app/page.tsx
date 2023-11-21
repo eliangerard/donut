@@ -21,7 +21,7 @@ export default async function Page() {
     return (
         <Layout>
             <div className="w-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-                <Image className="w-full col-span-2 md:col-span-3 lg:col-span-4 " src="/ad.png" alt="" width={1000} height={100} quality={100} />
+                <Image className="w-full col-span-2 md:col-span-3 lg:col-span-4 " src="/ad.png" alt="" width={800} height={100} quality={100} />
                 <ProductsList products={products} />
             </div>
         </Layout>
