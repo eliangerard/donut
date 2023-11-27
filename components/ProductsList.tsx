@@ -2,6 +2,8 @@
 
 import { Montserrat } from "next/font/google";
 import Image from "next/image"
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,14 +11,16 @@ const montserrat = Montserrat({ subsets: ['latin'], weight: ["900"] });
 
 export default function ProductsList({ products } : { products: any[] | null }) {
 
-    const onClick = () => toast.success('Toast is good', { position: toast.POSITION.BOTTOM_LEFT})
+    const onClick = () => {
+        redirect('/product');
+    }
 
     return (
         <>
             
             {
                 products?.map((product) => (
-                    <div onClick={onClick} className="bg-[length:200%_300%] hover:bg-[center_top_100%] hover:bg-[length:100%_200%] bg-gradient-to-br from-turquoise-50 to-turquoise-200 hover:cursor-pointer w-full md:w-60 h-80 rounded-xl p-4 flex flex-col justify-between group transition-all" key={product.id}>
+                    <Link href={'/product/?id=' + product.id} onClick={onClick} className="bg-[length:200%_300%] hover:bg-[center_top_100%] hover:bg-[length:100%_200%] bg-gradient-to-br from-turquoise-50 to-turquoise-200 hover:cursor-pointer w-full md:w-60 h-80 rounded-xl p-4 flex flex-col justify-between group transition-all" key={product.id}>
                         <div className="flex flex-row-reverse">
                             <Image src='/heart.png' width={24} height={24} alt="" quality={100} />
                         </div>
@@ -35,7 +39,7 @@ export default function ProductsList({ products } : { products: any[] | null }) 
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 ))
             }
         </>
