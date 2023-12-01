@@ -1,3 +1,4 @@
+import NavBar from '@/components/NavBar';
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from "next/headers";
 import { redirect } from 'next/navigation';
@@ -14,8 +15,8 @@ export default async function Page() {
         redirect('/');
 
     return (
-        <div className="w-full flex flex-col justify-center items-center min-h-full h-full">
-            <h2 className="text-xl font-bold m-4 w-7/12">Management</h2>
+        <div className="w-full flex min-h-full h-full">
+            
         </div>
     )
 }

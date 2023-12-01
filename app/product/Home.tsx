@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useRef, useState } from 'react';
 import { useFabricJSEditor, FabricJSCanvas } from 'fabricjs-react';
 import { fabric } from 'fabric';
+import Image from 'next/image';
 
 const imagenes = [
     'https://cf.shopee.com.mx/file/57ca00788517873f4764d6b4ebe61c4f',
@@ -11,7 +12,7 @@ const imagenes = [
     'https://cdn1.coppel.com/images/catalog/mkp/7005/3000/70051994-1.jpg',
 ];
 
-const Home = ({ imagenes = [{ url: "" }] }: { imagenes: any[] }) => {
+const Home = ({ imagenes = [{ url: "" }], product }: { imagenes: any[], product: { name: string, price: number, categories: { name: string } } }) => {
 
     const fileInput = useRef<HTMLInputElement>(null);
 
@@ -205,11 +206,17 @@ const Home = ({ imagenes = [{ url: "" }] }: { imagenes: any[] }) => {
             fabric.Image.fromURL(
                 imagenes[currentImageIndex].url,
                 (img) => {
-                    img.scaleToWidth(editor?.canvas?.width ? editor?.canvas?.width : 0);
-                    img.scaleToHeight(editor?.canvas?.height ? editor?.canvas?.height : 0);
+
+                    if (img.height! > img.width! && screen.width > 768)
+                        img.scaleToHeight(editor?.canvas?.height ? editor?.canvas?.height - 32 : 0);
+                    else
+                        img.scaleToWidth(editor?.canvas?.width ? editor?.canvas?.width -32 : 0);
+
                     img.set({
-                        originX: 'left',
-                        originY: 'top',
+                        originX: 'center',
+                        originY: 'center',
+                        top: editor.canvas.getCenter().top,
+                        left: editor.canvas.getCenter().left,
                         evented: false,
                         lockMovementX: true,
                         lockMovementY: true,
@@ -226,16 +233,15 @@ const Home = ({ imagenes = [{ url: "" }] }: { imagenes: any[] }) => {
                 { crossOrigin: 'anonymous' }
             );
         }
-
-        editor?.canvas.setWidth(500);
+        editor?.canvas.setWidth(screen.width < 768 ? screen.width - 32 : 500);
         editor?.canvas.setHeight(500);
     }, [editor]);
 
     return (
-        <div className={`flex min-h-screen w-2/3 h-full justify-center`}>
-            <div className={`flex flex-col w-3/5 h-full bg-cover bg-center`}>
-                <FabricJSCanvas className={`flex bg-neutral-200 w-full h-5/6 rounded-xl p-8`} onReady={onReady} />
-                <div className={`flex w-full h-1/6 items-center overflow-x-scroll`}>
+        <div className={`flex flex-col md:flex-row w-full 2xl:w-2/3 justify-center p-4 pt-0 2xl:mt-8 2xl:pt-4`}>
+            <div className={`flex flex-col w-full md:w-1/2 h-5/6 bg-cover bg-center`}>
+                <FabricJSCanvas className={`flex bg-neutral-200 w-full h-5/6 rounded-xl justify-center`} onReady={onReady} />
+                <div className={`flex w-full h-1/6 items-center overflow-x-auto`}>
                     {
                         imagenes.map((imagen, index) => (
                             <div
@@ -245,30 +251,90 @@ const Home = ({ imagenes = [{ url: "" }] }: { imagenes: any[] }) => {
                             >
                                 <img src={imagen.url} alt={`imagen-${index}`} className="w-28 h-28 object-cover rounded-xl bg-neutral-200 mt-4 mr-4 p-2" />
                             </div>
-                        ))}
+                        ))
+                    }
                 </div>
             </div>
-            <div className={`flex ml-10 w-2/5 h-5/6`}>
-                <input ref={fileInput} type="file" accept="image/*" className={`hidden`} onChange={handleInputChange} />
-                <button
-                    className={`bg-neutral-200 rounded-xl w-28 h-28 mr-4 my-4 text-4xl text-neutral-500 hover:text-neutral-600 font-black transition-all`}
-                    onClick={() => { fileInput.current?.click() }}>
-                    +
-                </button>
-                <div className='flex overflow-x-scroll py-4'>
-                    <div className={`flex w-fit`}>
-                        {filesArray.map((inputFile, index) => (
-                            inputFile.groupIndex == currentImageIndex &&
-                            <div key={index} className={`relative mb-2 bg-neutral-200 p-2 rounded-xl w-28 h-28 object-contain mr-4`}>
-                                <img src={inputFile.imageUrl} alt={`user-image-${index}`} className={`w-full h-full object-contain`} />
-                                <button
-                                    className={`absolute top-[-8px] right-[-8px] h-8 w-8 bg-neutral-400 rounded-full text-white px-1 rotate-45 hover:bg-neutral-500 hover:rotate-[-315deg] font-black transition-all`}
-                                    onClick={() => { handleDeleteImage(inputFile.id) }}
-                                >
-                                    +
-                                </button>
+            <div className={`md:ml-4 w-full md:h-5/6 mt-4 md:mt-0`}>
+                <div className='flex bg-white rounded-xl p-8 justify-between items-end'>
+                    <div>
+                        <p className='font-semibold text-neutral-400'>{product?.categories.name}</p>
+                        <p className='font-bold text-4xl text-neutral-800'>{product?.name}</p>
+                    </div>
+                    <p className='text-6xl font-black text-turquoise-700'>${product?.price}</p>
+                </div>
+                <div className='bg-white rounded-xl p-8 justify-between items-end mt-4'>
+                    <div className='flex w-full flex-col md:flex-row'>
+                        <div className='flex w-1/2'>
+                            <div>
+                                <p className='font-bold text-neutral-800 text-xl pb-4'>Color</p>
+                                <div className='flex'>
+                                    <div className='rounded-xl bg-hit-pink-800 h-12 w-12 mr-2'></div>
+                                    <div className='rounded-xl bg-hit-pink-700 h-12 w-12 mr-2'></div>
+                                    <div className='rounded-xl bg-hit-pink-600 h-12 w-12 mr-2'></div>
+                                    <div className='rounded-xl bg-hit-pink-500 h-12 w-12 mr-2'></div>
+                                </div>
                             </div>
-                        ))}
+                        </div>
+                        <div className='flex mt-4 md:mt-0 md:ml-4 w-1/2'>
+                            <div>
+                                <p className='font-bold text-neutral-800 text-xl pb-4'>Talla</p>
+                                <div className='flex'>
+                                    <div className='rounded-xl bg-neutral-100 mr-2 font-black w-12 h-12 flex items-center justify-center'>S</div>
+                                    <div className='rounded-xl bg-neutral-100 mr-2 font-black w-12 h-12 flex items-center justify-center'>M</div>
+                                    <div className='rounded-xl bg-neutral-100 mr-2 font-black w-12 h-12 flex items-center justify-center'>L</div>
+                                    <div className='rounded-xl bg-neutral-100 mr-2 font-black w-12 h-12 flex items-center justify-center'>XL</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p className='font-bold text-neutral-800 text-xl mt-4'>Imágenes</p>
+                    <div className="w-full flex">
+                        <input ref={fileInput} type="file" accept="image/*" className={`hidden`} onChange={handleInputChange} />
+                        <button
+                            className={`bg-neutral-200 rounded-xl w-min-28 w-28 h-28 mr-4 my-4 text-4xl text-neutral-500 hover:text-neutral-600 font-black transition-all`}
+                            onClick={() => { fileInput.current?.click() }}>
+                            +
+                        </button>
+                        <div className='flex flex-1 overflow-x-auto py-4'>
+                            <div className={`flex w-fit`}>
+                                {filesArray.map((inputFile, index) => (
+                                    inputFile.groupIndex == currentImageIndex &&
+                                    <div key={index} className={`relative mb-2 bg-neutral-200 p-2 rounded-xl w-28 h-28 object-contain mr-4`}>
+                                        <img src={inputFile.imageUrl} alt={`user-image-${index}`} className={`w-full h-full object-contain rounded-lg`} />
+                                        <button
+                                            className={`absolute top-[-8px] right-[-8px] h-8 w-8 bg-neutral-400 rounded-full text-white px-1 rotate-45 hover:bg-neutral-500 hover:rotate-[-315deg] font-black transition-all`}
+                                            onClick={() => { handleDeleteImage(inputFile.id) }}
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className='flex bg-turquoise-50 rounded-t-xl md:rounded-xl p-4 md:p-8 justify-end md:justify-between items-center mt-4 fixed bottom-0 md:static w-full left-0'>
+
+                    <div className='hidden md:block'>
+                        <p className='text-neutral-800 font-bold pb-1 opacity-70'>Cantidad</p>
+                        <div className='flex p-1 bg-white rounded-xl'>
+                            <button className='w-12 font-black text-turquoise-700'>-</button>
+                            <p className='font-bold px-4'>1</p>
+                            <button className='w-12 font-black text-turquoise-700'>+</button>
+                        </div>
+                    </div>
+
+                    <div className="flex">
+                        <button className='bg-white md:hover:bg-neutral-50 active:bg-hit-pink-50 flex items-center md:h-12 w-12 justify-center rounded-xl'>
+                            <Image className='my-auto mr-1' src="/cart.svg" alt="Cart" width={25} height={25} />
+                        </button>
+                        <button
+                            className='bg-turquoise-500 hover:bg-turquoise-600 md:h-12 active:bg-turquoise-700 text-white py-2 px-4 rounded-xl font-bold ml-4 transition-all'
+                        >
+                            Pedir ahora
+                        </button>
                     </div>
                 </div>
                 {/* <div className={`flex-col bg-blue-300 w-full h-1/4`}>

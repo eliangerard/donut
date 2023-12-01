@@ -12,7 +12,7 @@ export default function Layout({
       <div className="w-full flex flex-col justify-center items-center min-h-full h-full">
         {children}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

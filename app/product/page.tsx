@@ -11,22 +11,23 @@ const Page = async ({ searchParams }: { searchParams: { id: string } }) => {
     const supabase = createClient(cookieStore);
 
 
-    let { data: products, error } = await supabase
+    let { data: images = [] } = await supabase
         .from('images')
         .select().eq('idProduct', searchParams?.id);
 
-        console.log(products);
+    let { data: products = [] } = await supabase
+        .from('products')
+        .select(`*,
+        categories (
+            name
+        )`).eq('id', searchParams?.id);
+
+        console.log(products, images);
 
         return (
             <Layout>
-                <h1>Product</h1>
-                {searchParams?.id && (
-                    <p>
-                        {searchParams.id}
-                    </p>
-                )}
-                {products && (
-                    <Home imagenes={products}/>
+                {products && images && (
+                    <Home imagenes={images} product={products[0]}/>
                 )}        
         </Layout>
     )

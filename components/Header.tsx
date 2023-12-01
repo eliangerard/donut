@@ -5,9 +5,9 @@ import { Montserrat } from 'next/font/google';
 import Categories from './Categories';
 import localFont from 'next/font/local';
 
-const montserrat = Montserrat({ subsets: ['latin'], weight: ["900"] });
-
 const tangoBold = localFont({ src: '../public/tango-bold.woff2' });
+
+const montserrat = Montserrat({ subsets: ['latin'], weight: ["900"] });
 
 export default function Header() {
 
