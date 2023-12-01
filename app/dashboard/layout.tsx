@@ -1,10 +1,10 @@
 import NavBar from "@/components/NavBar"
 
-export const layout = ({
+export default function layout ({
     children,
 }: {
     children: React.ReactNode
-}) => {
+}) {
     return (
         <div className="w-full min-h-full h-full">
             <NavBar />
@@ -15,5 +15,3 @@ export const layout = ({
         </div>
     )
 }
-
-export default layout;
