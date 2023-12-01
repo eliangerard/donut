@@ -2,7 +2,7 @@ import Grip from "@/components/Grip";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 
-export const page = async () => {
+export default async function page () {
 
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -36,5 +36,3 @@ export const page = async () => {
         </>
     )
 }
-
-export default page;

@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import Image from "next/image";
 
-export const page = async () => {
+export default async function page () {
 
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -16,12 +16,6 @@ export const page = async () => {
         )`);
 
     const date = new Date(Date.now());
-    const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    };
 
     return (
         <>
@@ -33,5 +27,3 @@ export const page = async () => {
         </>
     )
 }
-
-export default page;
