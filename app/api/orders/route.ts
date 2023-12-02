@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { cookies } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid'; // Importar la librería uuid
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
     const { canvasData, product } = await req.json();
 
     const cookieStore = cookies();
