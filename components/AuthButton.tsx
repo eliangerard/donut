@@ -13,7 +13,8 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  console.log(user);
+  console.log("User loged", user);
+
   const signOut = async () => {
     'use server'
 
@@ -29,8 +30,14 @@ export default async function AuthButton() {
         <Image className='my-auto mr-4' src="/cart.svg" alt="Cart" width={25} height={25} />
       </Link>
       <form action={signOut}>
-        <button className="p-2 rounded-full no-underline bg-turquoise-100 w-12 h-12 hover:bg-turquoise-200 active:bg-turquoise-300 hover:outline-4 transition-all group">
-          <Profile />
+        <button className="rounded-full no-underline bg-turquoise-100 w-12 h-12 hover:bg-turquoise-200 active:bg-turquoise-300 hover:outline-4 transition-all group object-cover overflow-hidden flex items-center justify-center">
+          {
+            user.user_metadata.avatar_url ? (
+              <img src={user.user_metadata.avatar_url} alt="Avatar"/>
+            ) : (
+              <Profile/>
+            )
+          }
         </button>
       </form>
     </>

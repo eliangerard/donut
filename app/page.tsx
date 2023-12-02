@@ -16,8 +16,6 @@ export default async function Page() {
         categories (
             name
         )`);
-
-    console.log(products, error);
     return (
         <Layout>
             <div className="w-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">

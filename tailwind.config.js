@@ -18,6 +18,7 @@ module.exports = {
           background: 'hsl(var(--btn-background))',
           'background-hover': 'hsl(var(--btn-background-hover))',
         },
+        shader: '#00000080',
         'hit-pink': {
           '50': '#fef4ee',
           '100': '#fee6d6',

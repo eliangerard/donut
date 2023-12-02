@@ -4,8 +4,6 @@ import { Montserrat } from "next/font/google";
 import Image from "next/image"
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ToastContainer, toast, Slide } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ["900"] });
 

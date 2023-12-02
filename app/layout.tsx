@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 import { Montserrat, Poppins } from 'next/font/google'
 
@@ -25,6 +27,8 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" />
       </head>
       <body className={poppins.className + ' bg-neutral-100'}>
+        <ToastContainer
+        />
         {children}
       </body>
     </html>

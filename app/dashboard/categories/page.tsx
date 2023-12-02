@@ -19,9 +19,10 @@ export default async function page () {
             <p className="font-bold text-neutral-400 pb-8">{date.toLocaleString('es-MX', { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
             <div className="bg-white rounded-xl p-8 font-semibold text-2xl my-4 flex justify-between outline outline-0 focus-within:outline-neutral-400 focus-within:outline-4 transition-all">
                 <input type="text" placeholder="Nueva categoría" className="w-full focus:outline-none"/>
+                <button className='bg-turquoise-500 hover:bg-turquoise-600 active:bg-turquoise-700 text-white py-2 px-4 rounded-xl font-bold transition-all'>Agregar</button>
             </div>
             {categories?.map((category: any) => (
-                <div className="bg-white rounded-xl p-8 font-semibold text-2xl my-4 flex justify-between">
+                <div className="bg-white rounded-xl p-8 font-semibold text-2xl my-4 flex justify-between border-neutral-200 border-2">
                     {category.name}
                     <div className="flex items-center">
                         <button>
