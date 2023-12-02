@@ -1,9 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid'; // Importar la librería uuid
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     const { canvasData, product } = await req.json();
 
     const cookieStore = cookies();
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     console.log("user", user);
 
     if (user.session == null) {
-        return Response.json({ error: 'Inicia sesión para hacer tu pedido' })
+        return NextResponse.json({ error: 'Inicia sesión para hacer tu pedido' })
     }
 
     const { data: order, error: orderError, status } = await supabase
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     console.log("order", order, orderError);
 
     if (orderError || !order)
-        return Response.json({ error: 'Error al crear el pedido' });
+        return NextResponse.json({ error: 'Error al crear el pedido' });
 
 
     let hasError = false; // Variable para realizar un seguimiento de los errores
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 
         if (error) {
             hasError = true; // Establecer la variable hasError en true si hay un error
-            return Response.json({ error: 'Error al subir la imagen' });
+            return NextResponse.json({ error: 'Error al subir la imagen' });
         }
 
         const { data: insertData, error: insertError } = await supabase
@@ -60,19 +60,19 @@ export async function POST(req: Request) {
 
         if (insertError) {
             hasError = true; // Establecer la variable hasError en true si hay un error
-            return Response.json({ error: 'Error al subir la imagen' });
+            return NextResponse.json({ error: 'Error al subir la imagen' });
         }
 
         console.log("papu", data, error);
     }));
 
     if (hasError) {
-        return Response.json({ error: 'Error al subir las imágenes' });
+        return NextResponse.json({ error: 'Error al subir las imágenes' });
     }
 
     const { data: insertData, error: insertError } = await supabase
     .from('orderProduct')
     .insert({ idOrder: order[0]['id'], idProduct: product.id });
 
-    return Response.json({ data: 'Pedido realizado' })
+    return NextResponse.json({ data: 'Pedido realizado' })
 }
