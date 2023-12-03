@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     const { data: order, error: orderError, status } = await supabase
         .from('order')
-        .insert({ idUser: user.session.user.id, idOrder : 1 }).select();
+        .insert({ idUser: user.session.user.id, idStatus : 1 }).select();
 
     console.log("order", order, orderError);
 
