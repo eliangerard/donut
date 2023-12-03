@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import Order from "./Order";
+import Order from "../Order";
 
 export default async function page() {
     const acceptOrder = async (orderId : string, formData: FormData) => {
@@ -18,13 +18,19 @@ export default async function page() {
 
         console.log("Pedido", orders, insertError);
     }
+
+    const date = new Date(Date.now());
+
     const cookieStore = cookies();
 
     const supabase = createClient(cookieStore);
 
+    const { data: user } = await supabase.auth.getSession()
+
     const { data: orders, error: insertError } = await supabase
         .from('order')
-        .select('*, users(*), orderStatus(status)');
+        .select('*, users(*), orderStatus(status)')
+        .eq('idStatus', 1);
 
     const { data: ordersImages, error: imagesError } = await supabase
         .from('orderImages')

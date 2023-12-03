@@ -2,7 +2,7 @@ import Profile from "@/components/Profile"
 
 export default function Order({ order, orderImages, acceptOrder }: { order: { id: string, created_at: string, idStatus: number, users: { avatar_url: string, name: string, email: string, phone: string } }, orderImages: any[] | undefined, acceptOrder: any }) {
 
-    const acceptOrderWithId = acceptOrder.bind(null, order.id)
+    const acceptOrderWithId = acceptOrder && acceptOrder.bind(null, order.id);
     return (
         <div className="bg-white rounded-xl p-8 font-semibold text-2xl my-4 flex flex-col border-neutral-200 border-2">
             <div className="flex justify-between">
